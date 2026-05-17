@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Margarita Aguilar Ruiz</title>
+<link rel="icon" type="image/x-icon"href="/assets/images/favicon.ico"
+
+  <!-- GOOGLE FONTS -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- GSAP SCROLL -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#050505;
+      color:#f5f2eb;
+      font-family:'Poppins',sans-serif;
+      overflow-x:hidden;
+    }
+
+    /* LOADER */
+
+    .loader{
+
+      position:fixed;
+      inset:0;
+
+      background:#000;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      z-index:99999;
+    }
+
+    .loader h1{
+
+      font-size:4rem;
+
+      color:#c9a86a;
+
+      letter-spacing:12px;
+
+      font-family:'Playfair Display',serif;
+    }
+
+    /* NAVBAR PREMIUM */
+
+    .navbar{
+
+      position:fixed;
+
+      top:20px;
+      left:50%;
+
+      transform:translateX(-50%);
+
+      width:92%;
+
+      padding:18px 40px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      z-index:2000;
+
+      border:1px solid rgba(255,255,255,.08);
+
+      background:rgba(10,10,10,.45);
+
+      backdrop-filter:blur(18px);
+
+      border-radius:25px;
+
+      box-shadow:
+      0 10px 40px rgba(0,0,0,.35),
+      inset 0 0 20px rgba(255,255,255,.02);
+
+      transition:.4s;
+    }
+
+    .navbar:hover{
+
+      border:1px solid rgba(201,168,106,.25);
+
+      box-shadow:
+      0 10px 60px rgba(0,0,0,.45),
+      0 0 30px rgba(201,168,106,.08);
+    }
+
+    /* LOGO */
+
+    .logo{
+
+      position:relative;
+
+      font-family:'Playfair Display',serif;
+
+      font-size:1.1rem;
+
+      letter-spacing:3px;
+
+      color:#fff;
+
+      cursor:pointer;
+
+      transition:.4s;
+    }
+
+    .logo::after{
+
+      content:'';
+
+      position:absolute;
+
+      left:0;
+      bottom:-8px;
+
+      width:40%;
+      height:1px;
+
+      background:#c9a86a;
+
+      transition:.4s;
+    }
+
+    .logo:hover{
+
+      color:#c9a86a;
+    }
+
+    .logo:hover::after{
+
+      width:100%;
+    }
+
+    /* NAVIGATION */
+
+    .desktop-nav{
+
+      display:flex;
+      align-items:center;
+
+      gap:35px;
+    }
+
+    .desktop-nav a{
+
+      position:relative;
+
+      text-decoration:none;
+
+      color:rgba(255,255,255,.85);
+
+      font-size:.95rem;
+
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+
+      transition:.4s;
+
+      padding:10px 0;
+    }
+
+    .desktop-nav a::before{
+
+      content:'';
+
+      position:absolute;
+
+      left:50%;
+      bottom:0;
+
+      width:0%;
+      height:1px;
+
+      background:#c9a86a;
+
+      transform:translateX(-50%);
+
+      transition:.4s;
+    }
+
+    .desktop-nav a::after{
+
+      content:'';
+
+      position:absolute;
+
+      inset:0;
+
+      background:rgba(201,168,106,.08);
+
+      border-radius:10px;
+
+      opacity:0;
+
+      transform:scale(.8);
+
+      transition:.4s;
+
+      z-index:-1;
+    }
+
+    .desktop-nav a:hover{
+
+      color:#fff;
+
+      transform:translateY(-2px);
+    }
+
+    .desktop-nav a:hover::before{
+
+      width:100%;
+    }
+
+    .desktop-nav a:hover::after{
+
+      opacity:1;
+
+      transform:scale(1);
+    }
+
+    .desktop-nav a.active{
+
+      color:#c9a86a;
+    }
+
+    .desktop-nav a.active::before{
+
+      width:100%;
+    }
+
+    /* MOBILE BUTTON */
+
+    .menu-btn{
+
+      width:35px;
+      height:25px;
+
+      display:none;
+
+      flex-direction:column;
+      justify-content:space-between;
+
+      cursor:pointer;
+
+      z-index:3000;
+    }
+
+    .menu-btn span{
+
+      width:100%;
+      height:3px;
+
+      background:#fff;
+
+      border-radius:10px;
+
+      transition:.4s;
+    }
+
+    /* MOBILE MENU */
+
+    .mobile-menu{
+
+      position:fixed;
+
+      top:0;
+      right:-100%;
+
+      width:100%;
+      height:100vh;
+
+      background:#050505;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+
+      gap:40px;
+
+      z-index:2500;
+
+      transition:.6s;
+    }
+
+    .mobile-menu.active{
+
+      right:0;
+    }
+
+    .mobile-menu a{
+
+      color:white;
+
+      text-decoration:none;
+
+      font-size:2rem;
+
+      font-family:'Playfair Display',serif;
+    }
+
+    /* HERO */
+
+    .hero{
+
+      height:100vh;
+
+      position:relative;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      overflow:hidden;
+
+      background:url('https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1974&auto=format&fit=crop');
+
+      background-size:cover;
+      background-position:center;
+    }
+
+    /* OVERLAY */
+
+    .overlay{
+
+      position:absolute;
+      inset:0;
+
+      background:rgba(0,0,0,.72);
+    }
+
+    /* PARTICLES */
+
+    .particles{
+
+      position:absolute;
+      inset:0;
+
+      background-image:
+      radial-gradient(#c9a86a 1px, transparent 1px);
+
+      background-size:50px 50px;
+
+      opacity:.12;
+
+      animation:particlesMove 18s linear infinite;
+    }
+
+    @keyframes particlesMove{
+
+      from{
+        transform:translateY(0);
+      }
+
+      to{
+        transform:translateY(-120px);
+      }
+    }
+
+    /* GLOW */
+
+    .glow{
+
+      position:absolute;
+
+      width:500px;
+      height:500px;
+
+      background:#c9a86a;
+
+      border-radius:50%;
+
+      filter:blur(160px);
+
+      opacity:.08;
+    }
+
+    .glow1{
+
+      top:-100px;
+      left:-100px;
+    }
+
+    .glow2{
+
+      bottom:-100px;
+      right:-100px;
+    }
+
+    /* HERO CONTENT */
+
+    .hero-content{
+
+      position:relative;
+      z-index:5;
+
+      width:80%;
+
+      text-align:center;
+    }
+
+    .subtitle{
+
+      color:#c9a86a;
+
+      letter-spacing:5px;
+
+      margin-bottom:20px;
+
+      text-transform:uppercase;
+    }
+
+    .hero h1{
+
+      font-size:6rem;
+
+      line-height:1.1;
+
+      font-family:'Playfair Display',serif;
+    }
+
+    .hero h1 span{
+
+      display:block;
+
+      color:#c9a86a;
+    }
+
+    .description{
+
+      margin-top:25px;
+
+      opacity:.8;
+
+      font-size:1.1rem;
+    }
+
+    .hero-btn{
+
+      margin-top:40px;
+
+      padding:18px 45px;
+
+      border:none;
+      border-radius:50px;
+
+      background:#c9a86a;
+
+      color:#111;
+
+      font-weight:600;
+
+      cursor:pointer;
+
+      transition:.4s;
+    }
+
+    .hero-btn:hover{
+
+      transform:translateY(-8px);
+
+      box-shadow:0 10px 40px rgba(201,168,106,.4);
+    }
+
+    /* ABOUT */
+
+    .about{
+
+      min-height:100vh;
+
+      padding:120px 8%;
+
+      display:grid;
+      grid-template-columns:1fr 1fr;
+
+      gap:80px;
+
+      align-items:center;
+    }
+
+    .section-subtitle{
+
+      color:#c9a86a;
+
+      letter-spacing:5px;
+
+      margin-bottom:20px;
+
+      text-transform:uppercase;
+    }
+
+    .about h2{
+
+      font-size:4rem;
+
+      margin-bottom:30px;
+
+      font-family:'Playfair Display',serif;
+    }
+
+    .about p{
+
+      line-height:2;
+
+      opacity:.8;
+    }
+
+    .about-image img{
+
+      width:100%;
+
+      border-radius:20px;
+
+      transition:.5s;
+    }
+
+    .about-image:hover img{
+
+      transform:scale(1.03);
+    }
+
+    /* REVEAL */
+
+    .reveal{
+
+      opacity:0;
+
+      transform:translateY(100px);
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      .desktop-nav{
+        display:none;
+      }
+
+      .menu-btn{
+        display:flex;
+      }
+
+      .hero h1{
+        font-size:3.2rem;
+      }
+
+      .about{
+        grid-template-columns:1fr;
+      }
+
+      .about h2{
+        font-size:2.5rem;
+      }
+
+    }
+
+    @media(max-width:500px){
+
+      .hero h1{
+        font-size:2.3rem;
+      }
+
+      .description{
+        font-size:.95rem;
+      }
+
+      .hero-btn{
+        width:100%;
+      }
+
+      .logo{
+        font-size:.9rem;
+      }
+
+    }
+
+/* QUOTE SECTION */
+
+.quote-section{
+
+  height:70vh;
+
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  background:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2000&auto=format&fit=crop');
+
+  background-size:cover;
+  background-position:center;
+}
+
+.quote-overlay{
+
+  position:absolute;
+  inset:0;
+
+  background:rgba(0,0,0,.7);
+}
+
+.quote-content{
+
+  position:relative;
+  z-index:5;
+
+  width:80%;
+
+  text-align:center;
+}
+
+.quote-text{
+
+  font-size:3rem;
+
+  line-height:1.4;
+
+  font-family:'Playfair Display',serif;
+
+  color:#f5f2eb;
+}
+
+/* SECTION HEADER */
+
+.section-header{
+
+  text-align:center;
+
+  margin-bottom:80px;
+}
+
+/* BOOKS */
+
+.books{
+
+  padding:140px 8%;
+
+  background:#080808;
+}
+
+.books-grid{
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+  gap:40px;
+}
+
+.book-card{
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  border-radius:25px;
+
+  overflow:hidden;
+
+  transition:.5s;
+
+  backdrop-filter:blur(10px);
+}
+
+.book-card:hover{
+
+  transform:translateY(-15px);
+
+  border:1px solid rgba(201,168,106,.2);
+
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.book-image{
+
+  overflow:hidden;
+}
+
+.book-image img{
+
+  width:100%;
+
+  height:400px;
+
+  object-fit:cover;
+
+  transition:.6s;
+}
+
+.book-card:hover img{
+
+  transform:scale(1.08);
+}
+
+.book-info{
+
+  padding:30px;
+}
+
+.book-info h3{
+
+  font-size:2rem;
+
+  margin-bottom:20px;
+
+  font-family:'Playfair Display',serif;
+}
+
+.book-info p{
+
+  opacity:.7;
+
+  line-height:1.8;
+}
+
+.book-info button{
+
+  margin-top:30px;
+
+  padding:14px 35px;
+
+  border:none;
+
+  border-radius:50px;
+
+  background:#c9a86a;
+
+  color:#111;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  transition:.4s;
+}
+
+.book-info button:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:0 10px 30px rgba(201,168,106,.3);
+}
+
+/* STATS */
+
+.stats{
+
+  padding:120px 8%;
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+  gap:40px;
+
+  text-align:center;
+}
+
+.stat-box{
+
+  padding:50px;
+
+  border-radius:25px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  transition:.4s;
+}
+
+.stat-box:hover{
+
+  transform:translateY(-10px);
+
+  border:1px solid rgba(201,168,106,.2);
+}
+
+.stat-box h2{
+
+  font-size:4rem;
+
+  color:#c9a86a;
+
+  margin-bottom:15px;
+}
+
+/* BLOG */
+
+.blog{
+
+  padding:140px 8%;
+}
+
+.blog-grid{
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+
+  gap:40px;
+}
+
+.blog-card{
+
+  background:rgba(255,255,255,.03);
+
+  border-radius:25px;
+
+  overflow:hidden;
+
+  transition:.5s;
+}
+
+.blog-card:hover{
+
+  transform:translateY(-15px);
+}
+
+.blog-card img{
+
+  width:100%;
+
+  height:300px;
+
+  object-fit:cover;
+}
+
+.blog-content{
+
+  padding:30px;
+}
+
+.blog-content h3{
+
+  font-size:2rem;
+
+  margin-bottom:20px;
+
+  font-family:'Playfair Display',serif;
+}
+
+/* CONTACT */
+
+.contact{
+
+  padding:140px 8%;
+}
+
+.contact-box{
+
+  max-width:800px;
+
+  margin:auto;
+
+  padding:60px;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  backdrop-filter:blur(10px);
+}
+
+.contact form{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:25px;
+
+  margin-top:40px;
+}
+
+.contact input,
+.contact textarea{
+
+  width:100%;
+
+  padding:18px;
+
+  background:#111;
+
+  border:none;
+
+  border-radius:15px;
+
+  color:white;
+
+  font-family:'Poppins',sans-serif;
+}
+
+.contact textarea{
+
+  min-height:180px;
+
+  resize:none;
+}
+
+.contact button{
+
+  padding:18px;
+
+  border:none;
+
+  border-radius:50px;
+
+  background:#c9a86a;
+
+  color:#111;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.4s;
+}
+
+.contact button:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:0 10px 30px rgba(201,168,106,.3);
+}
+
+/* FOOTER */
+
+footer{
+
+  padding:60px 8%;
+
+  text-align:center;
+
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+footer h2{
+
+  font-family:'Playfair Display',serif;
+
+  margin-bottom:15px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  .quote-text{
+
+    font-size:2rem;
+  }
+
+  .book-image img{
+
+    height:300px;
+  }
+
+}
+
+  </style>
+
+</head>
+
+
+
+
+---------
+
+
+
+
+<body>
+
+  <!-- LOADER -->
+
+  <div class="loader">
+
+    <h1>MARGARITA</h1>
+
+  </div>
+
+  <!-- NAVBAR -->
+
+  <header class="navbar">
+
+    <div class="logo">
+
+      Margarita Aguilar - Novelista
+
+    </div>
+
+    <!-- MENU DESKTOP -->
+
+    <nav class="desktop-nav">
+
+      <a href="index.html">Inicio</a>
+    <a href="libros.html">Libros</a>
+    <a href="Editorial.html">Editorial</a>
+    <a href="autora.html">Autora</a>
+    <a href="Notadeprensa.html">Nota deprensa</a>
+    <a href="blog.html">Blog</a>
+    <a href="contacto.html">Contacto</a>
+
+    </nav>
+
+    <!-- MOBILE BUTTON -->
+
+    <div class="menu-btn">
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+  </header>
+
+  <!-- MOBILE MENU -->
+
+  <div class="mobile-menu">
+
+    <a href="index.html">Inicio</a>
+    <a href="libros.html">Libros</a>
+    <a href="Editorial.html">Editorial</a>
+    <a href="autora.html">Autora</a>
+    <a href="Notadeprensa.html">Nota deprensa</a>
+    <a href="blog.html">Blog</a>
+    <a href="contacto.html">Contacto</a>
+
+  </div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <!-- OVERLAY -->
+
+    <div class="overlay"></div>
+
+    <!-- PARTICLES -->
+
+    <div class="particles"></div>
+
+    <!-- GLOW -->
+
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+
+    <!-- HERO CONTENT -->
+
+    <div class="hero-content">
+
+      <p class="subtitle">
+
+        Margarita Aguilar Ruiz
+
+      </p>
+
+      <h1>
+
+        Las historias no se cuentan...
+        <span>se viven.</span>
+
+      </h1>
+
+      <p class="description">
+
+        
+
+      </p>
+
+      <button class="hero-btn">
+
+        Explorar obras
+
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="about">
+
+    <div class="about-text reveal">
+
+      <p class="section-subtitle">
+
+         Un poco sobre Margarita  Aguilar
+
+      </p>
+
+      <h2>
+
+        Palabras que nacen del alma.
+
+      </h2>
+
+      <p>
+
+        
+Margarita Aguilar Ruiz, conocida como Alessandra del Mar, es una escritora mexicana nacida el 25 de abril de 1972. Médica especialista en Salud Pública y maestra en Desarrollo Rural, Ecología y Escritura Creativa, ha destacado como escritora, actriz, columnista y promotora cultural y social en Chiapas. Fue fundadora de la revista *UNACH CUNCTIS ORITUR LUX*, creadora de teatro educativo para la salud, líder de programas de salud pública y colaboradora de la OPS/OMS. También ha sido reconocida con premios como “Mujer del Año 2016” y el pergamino Juan Rulfo en 2018.
+
+Su obra literaria aborda la libertad femenina, el erotismo, la denuncia social y la identidad de la mujer a través de múltiples personajes y experiencias. En sus textos mezcla temas como el amor, el poder, la marginalidad, la espiritualidad y la vida urbana, mostrando distintas facetas del ser femenino y de la realidad social mexicana.
+
+
+      </p>
+
+    </div>
+
+    <div class="about-image reveal">
+
+      <img src="https://elemblob.blob.core.windows.net/media/club15a7caf7865c53_500w.jpg" alt="Autora">
+
+    </div>
+
+  </section>
+
+<!-- ========================= -->
+<!-- SEGUNDA PARTE DE LA WEB -->
+<!-- ========================= -->
+
+<!-- FRASE CINEMATOGRÁFICA -->
+
+<section class="quote-section">
+
+  <div class="quote-overlay"></div>
+
+  <div class="quote-content reveal">
+
+    <p class="quote-text">
+
+      “La literatura no cambia al mundo...
+      cambia a las personas que cambiarán el mundo.”
+
+    </p>
+
+  </div>
+
+</section>
+
+<!-- LIBROS -->
+
+<section class="books">
+
+  <div class="section-header reveal">
+
+    <p class="section-subtitle">
+      Obras destacadas
+    </p>
+
+    <h2>
+      Historias que dejan huella.
+    </h2>
+
+  </div>
+
+  <div class="books-grid">
+
+    <!-- BOOK 1 -->
+
+    <div class="book-card reveal">
+
+      <div class="book-image">
+
+        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1200&auto=format&fit=crop" alt="Libro">
+
+      </div>
+
+      <div class="book-info">
+
+        <h3>
+          Sombras del alma
+        </h3>
+
+        <p>
+
+          Una historia emocional sobre memoria,
+          pérdida y redención.
+
+        </p>
+
+        <button>
+
+          Leer más
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- BOOK 2 -->
+
+    <div class="book-card reveal">
+
+      <div class="book-image">
+
+        <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=1200&auto=format&fit=crop" alt="Libro">
+
+      </div>
+
+      <div class="book-info">
+
+        <h3>
+          El eco del silencio
+        </h3>
+
+        <p>
+
+          Una obra introspectiva llena
+          de sensibilidad humana.
+
+        </p>
+
+        <button>
+
+          Leer más
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- BOOK 3 -->
+
+    <div class="book-card reveal">
+
+      <div class="book-image">
+
+        <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?q=80&w=1200&auto=format&fit=crop" alt="Libro">
+
+      </div>
+
+      <div class="book-info">
+
+        <h3>
+          Cartas a la noche
+        </h3>
+
+        <p>
+
+          Fragmentos de emociones convertidos
+          en poesía contemporánea.
+
+        </p>
+
+        <button>
+
+          Leer más
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ESTADÍSTICAS -->
+
+<section class="stats">
+
+  <div class="stat-box reveal">
+
+    <h2>
+      +12
+    </h2>
+
+    <p>
+      Obras publicadas
+    </p>
+
+  </div>
+
+  <div class="stat-box reveal">
+
+    <h2>
+      +40K
+    </h2>
+
+    <p>
+      Lectores
+    </p>
+
+  </div>
+
+  <div class="stat-box reveal">
+
+    <h2>
+      +25
+    </h2>
+
+    <p>
+      Conferencias
+    </p>
+
+  </div>
+
+</section>
+
+<!-- BLOG -->
+
+<section class="blog">
+
+  <div class="section-header reveal">
+
+    <p class="section-subtitle">
+
+      Reflexiones
+
+    </p>
+
+    <h2>
+
+      Pensamientos y escritos.
+
+    </h2>
+
+  </div>
+
+  <div class="blog-grid">
+
+    <!-- CARD -->
+
+    <div class="blog-card reveal">
+
+      <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="blog-content">
+
+        <h3>
+
+          El arte de escribir emociones
+
+        </h3>
+
+        <p>
+
+          Reflexiones sobre la literatura
+          contemporánea y la sensibilidad humana.
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="blog-card reveal">
+
+      <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="blog-content">
+
+        <h3>
+
+          Historias que permanecen
+
+        </h3>
+
+        <p>
+
+          Cómo las palabras pueden transformar
+          la memoria colectiva.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTACTO -->
+
+<section class="contact">
+
+  <div class="contact-box reveal">
+
+    <p class="section-subtitle">
+
+      Contacto
+
+    </p>
+
+    <h2>
+
+      Conectemos.
+
+    </h2>
+
+    <form>
+
+      <input type="text" placeholder="Nombre">
+
+      <input type="email" placeholder="Correo">
+
+      <textarea placeholder="Mensaje"></textarea>
+
+      <button>
+
+        Enviar mensaje
+
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <h2>
+
+    Margarita Aguilar Ruiz
+
+  </h2>
+
+  <p>
+
+    Literatura contemporánea • Arte • Emoción
+
+  </p>
+
+</footer>
+
+
+
+
+---------
+
+
+
+
+
+
+
+  <script>
+
+
+
+
+    // GSAP
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // LOADER
+
+    gsap.to(".loader",{
+
+      opacity:0,
+      duration:1.5,
+      delay:1.5,
+
+      onComplete:()=>{
+
+        document.querySelector(".loader").style.display="none";
+
+      }
+
+    });
+
+    // HERO ANIMATIONS
+
+    gsap.from(".subtitle",{
+
+      y:40,
+      opacity:0,
+      duration:1,
+      delay:2
+
+    });
+
+    gsap.from("h1",{
+
+      y:80,
+      opacity:0,
+      duration:1.2,
+      delay:2.2
+
+    });
+
+    gsap.from(".description",{
+
+      y:40,
+      opacity:0,
+      duration:1,
+      delay:2.5
+
+    });
+
+    gsap.from(".hero-btn",{
+
+      y:40,
+      opacity:0,
+      duration:1,
+      delay:2.8
+
+    });
+
+    // SCROLL REVEAL
+
+    gsap.utils.toArray(".reveal").forEach((element)=>{
+
+      gsap.to(element,{
+
+        scrollTrigger:{
+          trigger:element,
+          start:"top 80%"
+        },
+
+        y:0,
+        opacity:1,
+
+        duration:1.4,
+
+        ease:"power4.out"
+
+      });
+
+    });
+
+    // PARALLAX
+
+    window.addEventListener("scroll",()=>{
+
+      const scroll = window.pageYOffset;
+
+      gsap.to(".hero-content",{
+
+        y:scroll * 0.25,
+        duration:1
+
+      });
+
+    });
+
+    // MOBILE MENU
+
+    const menuBtn = document.querySelector(".menu-btn");
+
+    const mobileMenu = document.querySelector(".mobile-menu");
+
+    menuBtn.addEventListener("click",()=>{
+
+      mobileMenu.classList.toggle("active");
+
+    });
+
+    // NAVBAR SCROLL EFFECT
+
+    window.addEventListener("scroll",()=>{
+
+      const navbar = document.querySelector(".navbar");
+
+      if(window.scrollY > 50){
+
+        navbar.style.background = "rgba(5,5,5,.75)";
+
+        navbar.style.padding = "15px 35px";
+
+        navbar.style.border =
+        "1px solid rgba(201,168,106,.18)";
+
+      }
+
+      else{
+
+        navbar.style.background =
+        "rgba(10,10,10,.45)";
+
+        navbar.style.padding = "18px 40px";
+
+        navbar.style.border =
+        "1px solid rgba(255,255,255,.08)";
+      }
+
+    });
+
+    
+
+   
+  </script>
+
+</body>
+
+</html>
